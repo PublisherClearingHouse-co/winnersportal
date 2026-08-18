@@ -7,8 +7,10 @@
         const page = window.location.pathname.split('/').pop();
         const isUser = page === 'user.html';
         const isAdmin = page === 'admin.html';
+        const isIndex = page === 'index.html' || page === '' || page === '/';
         const nav = document.getElementById('mainNav');
         if (!nav) return;
+
         let links = [];
         if (isUser) {
             links = [
@@ -17,7 +19,6 @@
                 { label: 'Cards', href: 'user.html#cards' },
                 { label: 'Rewards', href: 'user.html#rewards' },
                 { label: 'Support', href: 'user.html#support' },
-                { label: 'Notifications', href: 'user.html#notifications' },
                 { label: 'KYC', href: 'user.html#kyc' },
                 { label: 'Withdrawals', href: 'user.html#withdrawals' },
                 { label: 'Transfers', href: 'user.html#transfers' },
@@ -43,12 +44,15 @@
                 { label: 'Logout', href: '#', id: 'logoutBtn' }
             ];
         } else {
+            // Index page – only Login and Sign Up
             links = [
-                { label: 'User Login', href: 'user.html' },
-                { label: 'Admin Login', href: 'admin.html' }
+                { label: 'Login', href: 'user.html' },
+                { label: 'Sign Up', href: 'signup.html' }
             ];
         }
+
         nav.innerHTML = links.map(l => `<a href="${l.href}" ${l.id ? `id="${l.id}"` : ''}>${l.label}</a>`).join('');
+
         const logoutBtn = document.getElementById('logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', function(e) {
